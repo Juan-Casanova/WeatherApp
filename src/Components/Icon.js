@@ -1,10 +1,16 @@
+
+
 const Icon = ({urlIcon, grade}) => {
 
-    let val 
+    
+    let val
 
-    if(grade>=40) {
-        val = "F"
-    } val = "C"
+    if(grade>=40    ) {
+
+        val="F"
+    }else {
+        val="C"
+    }
 
     return (
         <>

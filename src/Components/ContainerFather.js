@@ -6,7 +6,7 @@ import ListRight from '../Components/ListRight'
 
 import getWeather from '../services/getWeather'
 
-const ContainerFather = ({Colors}) => {
+const ContainerFather = () => {
 
     const [lat, setLat] = useState()
     const [long, setLong] = useState()
@@ -18,6 +18,7 @@ const ContainerFather = ({Colors}) => {
     const [description, setDescription] = useState()
     const [cloud, setCloud] = useState()
     const [pressure, setPressure] = useState()
+    const [isCelcius, setIsCelcius] = useState(true)
 
     
     useEffect(() => { 
@@ -45,8 +46,22 @@ const ContainerFather = ({Colors}) => {
        }
     },[lat,long])
 
+    const changeGrade = () => {
+        if(isCelcius===true) {
+            let val = (grade*(9/5))+32
+
+            setGadre(val.toFixed(1))
+            setIsCelcius(false)
+        }else {
+
+            let val1 = (grade-32)*(5/9)
+            setGadre(val1.toFixed(1))
+            setIsCelcius(true)
+        }
+    }
+
     return(
-        <div id="containerFather" style={{ borderColor : Colors[3]}}>
+        <div id="containerFather">
             <div id="containerTitle">
                 <Title col = {col} country = {country}/>
             </div>
@@ -58,7 +73,7 @@ const ContainerFather = ({Colors}) => {
                     <ListRight description = {description} vel = {vel} cloud = {cloud} pressure = {pressure}/>
                 </div>
             </div>
-            <button>Convertir</button>
+            <button onClick = {changeGrade}>CONVETIR</button>
         </div>
     )
 }
