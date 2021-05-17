@@ -36,11 +36,13 @@ const ContainerFather = () => {
     useEffect ( () => {
 
         console.log(url+lat+","+long)
-        fetch(url+lat+","+long,{method:'POST',headers: {'Content-Type':'application/json'}})
-        .then(res => res.json())
-        .then(res => {
-            setData(res)
-        })
+        if (lat && long) {
+            fetch(url+lat+","+long,{method:'POST',headers: {'Content-Type':'application/json'}})
+            .then(res => res.json())
+            .then(res => {
+                setData(res)
+            })
+        }
        
     },[lat,long])
 
