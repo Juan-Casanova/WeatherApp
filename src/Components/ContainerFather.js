@@ -10,7 +10,7 @@ const ContainerFather = () => {
 
     const [lat, setLat] = useState()
     const [long, setLong] = useState()
-    const [urlIcon, setUrlIcon] =useState()
+    /* const [urlIcon, setUrlIcon] =useState()
     const [col, setCol] = useState()
     const [country, setCountry] = useState()
     const [grade, setGadre] = useState()
@@ -18,7 +18,12 @@ const ContainerFather = () => {
     const [description, setDescription] = useState()
     const [cloud, setCloud] = useState()
     const [pressure, setPressure] = useState()
-    const [isCelcius, setIsCelcius] = useState(true)
+    const [isCelcius, setIsCelcius] = useState(true) */
+
+    const [data, setData] = useState()
+    const [country, setCountry] = useState()
+
+    let url = `https://api.weatherapi.com/v1/current.json?key=5d948657eb02450cb4851307211105&q=`
 
     
     useEffect(() => { 
@@ -28,7 +33,25 @@ const ContainerFather = () => {
         })
     },[])
 
-    useEffect (()=> { 
+    useEffect ( () => {
+
+        console.log(url+lat+","+long)
+        fetch(url+lat+","+long,{method:'POST',headers: {'Content-Type':'application/json'}})
+        .then(res => res.json())
+        .then(res => {
+            setData(res)
+        })
+       
+    },[lat,long])
+
+    useEffect ( () => {
+
+        if(data)console.log(data.location.country)
+        //setCountry(data.location.country)
+       
+    },[data])
+
+   /*  useEffect (()=> { 
        if(lat!==undefined) {
            if(long!==undefined) {
             getWeather(lat,long).then(data => {
@@ -58,22 +81,22 @@ const ContainerFather = () => {
             setGadre(val1.toFixed(1))
             setIsCelcius(true)
         }
-    }
+    } */
 
     return(
         <div id="containerFather">
             <div id="containerTitle">
-                <Title col = {col} country = {country}/>
+                <h3></h3>
             </div>
             <div id="body">
                 <div id="bodyLeft">
-                    <Icon urlIcon = {urlIcon} grade = {grade}/>
+                    
                 </div>
                 <div id="bodyRight">
-                    <ListRight description = {description} vel = {vel} cloud = {cloud} pressure = {pressure}/>
+                    
                 </div>
             </div>
-            <button onClick = {changeGrade}>CONVETIR</button>
+            {/* <button onClick = {changeGrade}>CONVETIR</button> */}
         </div>
     )
 }
